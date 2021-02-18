@@ -29,7 +29,7 @@ else:
   logging.basicConfig(level=logging.INFO)
 
 AWS_REGION = os.getenv('REGION_NAME', 'us-east-1')
-DYNAMODB_TABLE_NAME = os.getenv('DYNAMO_TABLE_NAME', 'AWSBuildersPost')
+DYNAMODB_TABLE_NAME = os.getenv('DYNAMODB_TABLE_NAME', 'AWSBuildersPost')
 TRANS_SRC_LANG = os.getenv('TRANS_SRC_LANG', 'en')
 TRANS_DEST_LANG = os.getenv('TRANS_DEST_LANG', 'ko')
 
