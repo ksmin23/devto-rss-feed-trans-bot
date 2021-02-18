@@ -1,0 +1,19 @@
+aws-cdk.core==1.85.0
+aws-cdk.aws-dynamodb==1.85.0
+aws-cdk.aws-ec2==1.85.0
+aws-cdk.aws-events==1.85.0
+aws-cdk.aws-events-targets==1.85.0
+aws-cdk.aws-iam==1.85.0
+aws-cdk.aws-lambda==1.85.0
+aws-cdk.aws-logs==1.85.0
+
+boto3==1.17.10
+botocore==1.20.10
+
+# packages for aws lambda layer
+# DO NOT REMOVE [[layers]] comment
+#[[layers]]
+typing-extensions==3.7.4.3
+beautifulsoup4==4.9.3
+feedparser==6.0.2
+pynamodb==5.0.2

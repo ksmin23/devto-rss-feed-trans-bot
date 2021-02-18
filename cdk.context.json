@@ -1,0 +1,9 @@
+{
+  "vpc_name": "Your-VPC-Name",
+  "lib_bucket_name": "Your-S3-Bucket-Name-Of-Lib",
+  "dynamodb_table_name": "Your-DynamoDB-Tablename",
+  "dry_run": "false",
+  "trans_src_lang": "en",
+  "trans_dest_lang": "ko",
+  "event_schedule": "0 * * * *"
+}
