@@ -37,7 +37,10 @@ Lambda Layer에 등록할 Python 패키지를 생성해서 s3에 저장한다.
     (.env) $ ./build-aws-lambda-layer.sh lambda-layer-resources/var
     ```
 
-4. `cdk.context.json` 파일을 열어서, `lib_bucket_name`에 Lambda Layer에 등록할 Python 패키지가 저장된 s3 bucket 이름을 적는다<br/>[dev.to/aws-builders](https://dev.to/aws-builders)의 영문 블로그 포스트 이므로 `trans_src_lang`을 `en`으로 설정한다.<br/> RSS Feed를 읽는 주기를 변경하고자 하는 경우, `event_schedule`을 crontab 문법 처럼 등록 한다.<br/>
+4. `cdk.context.json` 파일을 열어서, `lib_bucket_name`에 Lambda Layer에 등록할 Python 패키지가 저장된 s3 bucket 이름을 적는다<br/>
+[dev.to/aws-builders](https://dev.to/aws-builders)의 영문 블로그 포스트를 한국어로 번역하기 때문에 `trans_src_lang`을 `en`, `trans_dest_lang`을 `ko`로 각각 설정한다.<br/>
+수집한 블로그 포스트 내용을 저장할 DynamoDB 테이블을 미리 생성한 경우, `dynamodb_table_name`에 DynamoDB 테이블 이름을 넣는다. `dynamodb_table_name` 설정이 없는 경우, 자동으로 DynamoDB 테이블을 생성한다.<br/>
+RSS Feed를 읽는 주기를 변경하고자 하는 경우, `event_schedule`을 crontab 문법 처럼 등록 한다.<br/>
 `event_schedule` 기본 값은 매 3시간 마다 RSS Feed를 읽어서 번역한다.
 
     ```json
