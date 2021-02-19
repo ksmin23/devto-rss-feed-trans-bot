@@ -107,7 +107,7 @@ def get_or_create_translator(region_name):
   global TRANS_CLIENT
 
   if not TRANS_CLIENT:
-    TRANS_CLIENT = boto3.client('translate', region_name=AWS_REGION)
+    TRANS_CLIENT = boto3.client('translate', region_name=region_name)
   assert TRANS_CLIENT
   return TRANS_CLIENT
 
