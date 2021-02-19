@@ -5,5 +5,5 @@
   "dry_run": "false",
   "trans_src_lang": "en",
   "trans_dest_lang": "ko",
-  "event_schedule": "0 * * * *"
+  "event_schedule": "0 */3 * * *"
 }
