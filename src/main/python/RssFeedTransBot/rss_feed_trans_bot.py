@@ -52,12 +52,14 @@ class BlogPost(Model):
   link = UnicodeAttribute()
   tags = UnicodeAttribute(null=True)
   p_time = NumberAttribute(default=0)
+  createdAt = UnicodeAttribute()
+  updatedAt = UnicodeAttribute()
 
 
 def get_feeds_translated(feed_ids):
   feeds_translated = {}
   for item in BlogPost.batch_get(feed_ids):
-    feeds_translated[item.post_id] = True
+    feeds_translated[item.post_id] = item.createdAt
   return feeds_translated
 
 
@@ -94,6 +96,9 @@ def parse_feed(feed_url):
     if tags:
       doc['tags'] = tags
     doc['summary_short'] = get_summary(entry['summary'])
+
+    doc['createdAt'] = datetime.utcnow().isoformat(sep='T')
+    doc['updatedAt'] = doc['createdAt']
     entry_list.append(doc)
   return {'entries': entry_list, 'count': len(entry_list)}
 
@@ -121,7 +126,7 @@ def lambda_handler(event, context):
   LOGGER.info('start to get rss feed')
 
   feeds_parsed = parse_feed(RSS_FEED_URL)
-  #feeds_parsed := {'entries': [post_id, author, link, title, p_time, tags, summary_short], 'count': 'num of entries' }
+  #feeds_parsed := {'entries': [post_id, author, link, title, p_time, tags, summary_short, createdAt, updatedAt], 'count': 'num of entries' }
 
   feed_ids = [e['post_id'] for e in feeds_parsed['entries']]
   feeds_translated = get_feeds_translated(feed_ids)
@@ -142,7 +147,7 @@ def lambda_handler(event, context):
       dest_lang_code = translated_res['dest'])
   LOGGER.info('add translated rss feed')
 
-  #feeds_parsed := {'entries': [post_id, author, link, title, p_time, tags, summary_short, summary_short_translated, src_lang_code, dest_lang_code], 'count': 'num of entries' }
+  #feeds_parsed := {'entries': [post_id, author, link, title, p_time, tags, summary_short, createdAt, updatedAt, summary_short_translated, src_lang_code, dest_lang_code], 'count': 'num of entries' }
   save_feed_translated(new_feeds_parsed['entries'])
   LOGGER.info('save translated rss feeds in DynamoDB')
   LOGGER.info('end')
