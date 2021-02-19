@@ -28,6 +28,8 @@ if len(LOGGER.handlers) > 0:
 else:
   logging.basicConfig(level=logging.INFO)
 
+DRY_RUN = True if 'true' == os.getenv('DRY_RUN', 'true') else False
+
 AWS_REGION = os.getenv('REGION_NAME', 'us-east-1')
 DYNAMODB_TABLE_NAME = os.getenv('DYNAMODB_TABLE_NAME', 'AWSBuildersPost')
 TRANS_SRC_LANG = os.getenv('TRANS_SRC_LANG', 'en')
@@ -97,7 +99,7 @@ def parse_feed(feed_url):
       doc['tags'] = tags
     doc['summary_short'] = get_summary(entry['summary'])
 
-    doc['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
+    doc['createdAt'] = f"{datetime.utcnow().isoformat(timespec='milliseconds')}Z"
     doc['updatedAt'] = doc['createdAt']
     entry_list.append(doc)
   return {'entries': entry_list, 'count': len(entry_list)}
@@ -148,8 +150,9 @@ def lambda_handler(event, context):
   LOGGER.info('add translated rss feed')
 
   #feeds_parsed := {'entries': [post_id, author, link, title, p_time, tags, summary_short, createdAt, updatedAt, summary_short_translated, src_lang_code, dest_lang_code], 'count': 'num of entries' }
-  save_feed_translated(new_feeds_parsed['entries'])
-  LOGGER.info('save translated rss feeds in DynamoDB')
+  if not DRY_RUN:
+    save_feed_translated(new_feeds_parsed['entries'])
+    LOGGER.info('save translated rss feeds in DynamoDB')
   LOGGER.info('end')
 
 
