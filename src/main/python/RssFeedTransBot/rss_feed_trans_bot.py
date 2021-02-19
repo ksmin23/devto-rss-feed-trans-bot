@@ -97,7 +97,7 @@ def parse_feed(feed_url):
       doc['tags'] = tags
     doc['summary_short'] = get_summary(entry['summary'])
 
-    doc['createdAt'] = datetime.utcnow().isoformat(sep='T')
+    doc['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
     doc['updatedAt'] = doc['createdAt']
     entry_list.append(doc)
   return {'entries': entry_list, 'count': len(entry_list)}
