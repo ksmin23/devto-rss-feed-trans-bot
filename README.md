@@ -57,6 +57,8 @@ RSS Feed를 읽는 주기를 변경하고자 하는 경우, `event_schedule`을 
 
 5. `cdk deploy` 명령어를 이용해서 배포한다.
     ```shell script
+    (.env) $ export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+    (.env) $ export CDK_DEFAULT_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
     (.env) $ cdk --profile=cdk_user deploy
     ```
 
